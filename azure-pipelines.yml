@@ -5,34 +5,31 @@
 
 
 stages:
-- stage: A
+- stage: stg-A
   jobs:
-  - job: A
+  - job: jb-A1
     pool:
       vmImage: 'Ubuntu 16.04'
     steps:
     - checkout: none
-    - script: echo A!
+    - script: echo A1!
+  - job: jb-A2
+    pool:
+      vmImage: 'Ubuntu 16.04'
+    steps:
+    - checkout: none
+    - script: echo A1!
 
-- stage: B
-  dependsOn: A
+- stage: stg-B
+  dependsOn: stg-A
   jobs:
-  - job: B
+  - job: jb-b1
     pool:
       vmImage: 'Ubuntu 16.04'
     steps:
     - checkout: none
     - script: echo B!
 
-- stage: C
-  dependsOn: A
-  jobs:
-  - job: C
-    condition: eq(variables['Build.SourceBranch'], 'refs/heads/releases')
-    pool:
-      vmImage: 'Ubuntu 16.04'
-    steps:
-    - checkout: none
-    - script: echo C!
+
     
 
