@@ -5,30 +5,30 @@
 
 
 stages:
-- stage: stg-A
+- stage: stgA
   jobs:
-  - job: jb-A1
+  - job: jbA1
     pool:
       vmImage: 'Ubuntu 16.04'
     steps:
     - checkout: none
     - script: echo A1!
-  - job: jb-A2
+  - job: jbA2
     pool:
       vmImage: 'Ubuntu 16.04'
     steps:
     - checkout: none
-    - script: echo A1!
+    - script: echo A2!
 
-- stage: stg-B
-  dependsOn: stg-A
+- stage: stgB
+  dependsOn: stgA
   jobs:
-  - job: jb-b1
+  - job: jbB1
     pool:
       vmImage: 'Ubuntu 16.04'
     steps:
     - checkout: none
-    - script: echo B!
+    - script: echo B1!
 
 
     
