@@ -6,11 +6,34 @@
 pool:
   vmImage: 'Ubuntu 16.04'
 
-steps:
-- script: echo Hello, universe!
-  displayName: 'Run a one-line script'
+stages:
+- stage: A
+  jobs:
+  - job: A
+    pool:
+      vmImage: 'Ubuntu 16.04'
+    steps:
+    - checkout: none
+    - script: echo A!
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- stage: B
+  dependsOn: A
+  jobs:
+  - job: B
+    pool:
+      vmImage: 'Ubuntu 16.04'
+    steps:
+    - checkout: none
+    - script: echo B!
+
+- stage: C
+  dependsOn: A
+  jobs:
+  - job: C
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/releases')
+    pool:
+      vmImage: 'Ubuntu 16.04'
+    steps:
+    - checkout: none
+    - script: echo C!
+    
